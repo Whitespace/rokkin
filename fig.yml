@@ -1,0 +1,38 @@
+web:
+  build: .
+  command: bundle exec rackup -p 8080
+  ports:
+   - "8080:8080"
+   - "5432:5432" # postgres
+   - "6379:6379" # redis
+   - "9200:9200" # elasticsearch
+  volumes:
+    - .:/usr/src/app
+  links:
+    - postgres
+    - redis
+    - elasticsearch
+postgres:
+  # https://registry.hub.docker.com/_/postgres/
+  image: "postgres:9.3.5"
+  volumes:
+    # homebrew datadirectory:image data directory
+    - /usr/local/var/postgres:/var/lib/postgresql/data
+  expose:
+    - 5432
+redis:
+  # https://registry.hub.docker.com/u/dockerfile/redis/
+  image: "dockerfile/redis"
+  volumes:
+    # homebrew datadirectory:image data directory
+    - /usr/local/var/db/redis:/data
+  expose:
+    - 6379
+elasticsearch:
+  # https://registry.hub.docker.com/u/dockerfile/elasticsearch/
+  image: "dockerfile/elasticsearch"
+  volumes:
+    # homebrew datadirectory:image data directory
+    - /usr/local/var/db/redis:/data
+  expose:
+    - 9200
