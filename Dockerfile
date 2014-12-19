@@ -22,6 +22,10 @@ RUN apt-get install -y libsqlite3-dev nodejs
 # Cleanup
 RUN apt-get autoremove -y
 
+# Install foreman locally, not via Gemfile as per:
+# https://github.com/ddollar/foreman#installation
+RUN gem install foreman
+
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
 

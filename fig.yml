@@ -1,11 +1,24 @@
+# Quick Summary
+# =============
+# * command is the command run when the container is run.  It overrides CMD in
+#   your Dockerfile.
+# * build . means the Dockerfile is in the current directory
+# * ports are the ports the container exposes to the host OS.  If you get a
+#   conflict, you're probably running that same service locally.  Either
+#   change the mapping or disable it entirely (also disable the ports: key!)
+# * volumes are used to share a path from the host to the container.  Use this
+#   if you want to persist data outside the container, or modify data inside
+#   the container easily
+# * Comment out or remove anything you don't need
+# * Also, feel free to change the names from web/worker to api/whatever
+# * Note that you can't use YAML default: &default to share settings, as fig
+#   does not properly handle that right now
+
 web:
+  command: foreman start web
   build: .
-  command: bundle exec rackup -p 8080
   ports:
-   - "8080:8080"
-   - "5432:5432" # postgres
-   - "6379:6379" # redis
-   - "9200:9200" # elasticsearch
+    - "8080:8080"
   volumes:
     - .:/usr/src/app
   links:
@@ -15,24 +28,30 @@ web:
 postgres:
   # https://registry.hub.docker.com/_/postgres/
   image: "postgres:9.3.5"
-  volumes:
-    # homebrew datadirectory:image data directory
-    - /usr/local/var/postgres:/var/lib/postgresql/data
   expose:
     - 5432
+  ports:
+    - "5432:5432"
+  # volumes:
+  #   # homebrew datadirectory:image data directory
+  #   - /usr/local/var/postgres:/var/lib/postgresql/data
 redis:
   # https://registry.hub.docker.com/u/dockerfile/redis/
   image: "dockerfile/redis"
-  volumes:
-    # homebrew datadirectory:image data directory
-    - /usr/local/var/db/redis:/data
   expose:
     - 6379
+  ports:
+    - "6379:6379"
+  # volumes:
+  #   # homebrew datadirectory:image data directory
+  #   - /usr/local/var/db/redis:/data
 elasticsearch:
   # https://registry.hub.docker.com/u/dockerfile/elasticsearch/
   image: "dockerfile/elasticsearch"
-  volumes:
-    # homebrew datadirectory:image data directory
-    - /usr/local/var/db/redis:/data
   expose:
     - 9200
+  ports:
+    - "9200:9200"
+  # volumes:
+  #   # homebrew datadirectory:image data directory
+  #   - /usr/local/var/db/redis:/data
