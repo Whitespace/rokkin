@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require 'rokkin'
+require 'thor'
+require 'git'
+
+class RokkinCLI < Thor
+  desc "clone REPO", "This will clone the git repo located at REPO into the current directory"
+  def clone(repo)
+    name = repo.split('/')[-1].chomp(".git")
+    repo_location = File.join(File.expand_path(Pathname.new(name)))
+
+    print "Cloning into #{repo_location} ..."
+    Git.clone(repo, name)
+    puts " done"
+
+    containerize(repo_location)
+  end
+
+  desc "containerize PATH", "This will containerize the ruby app located at PATH. Default is the current directory"
+  def containerize(path='.')
+    print "Containerizing #{path} ..."
+    Rokkin.containerize(path)
+    puts " done"
+  end
+end
+
+RokkinCLI.start(ARGV)
