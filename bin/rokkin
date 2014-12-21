@@ -5,7 +5,7 @@ require 'thor'
 require 'git'
 
 class RokkinCLI < Thor
-  desc "clone URL", "This will clone the git repo located at URL into the current directory"
+  desc "clone URL", "Clones the git repo located at URL into the current directory."
   option :sha
   option :path
   def clone(url)
@@ -29,19 +29,32 @@ class RokkinCLI < Thor
       rescue Git::GitExecuteError => e
         puts "error!"
         puts e
+        puts "Checking out HEAD and continuing on ..."
       end
     end
 
     containerize(full_path)
   end
 
-  desc "containerize PATH", "This will containerize the ruby app located at PATH. Default is the current directory"
+  desc "containerize PATH", "Containerizes the ruby app located at PATH (defaults to the current directory)"
+  option :force, :type => :boolean, :desc => "Overwrites any Dockerfile, Procfile, .env, or fig.yaml file in the destination."
   def containerize(path='.')
     full_path = File.expand_path(path)
 
     print "Containerizing #{full_path} ... "
-    Rokkin.containerize(full_path)
-    puts "done"
+    begin
+      Rokkin.containerize(full_path, options)
+      puts "done"
+    rescue RokkinError => e
+      puts "error!"
+
+      if e.cause # This was caused by someone else (like FileUtils)
+        raise e.cause
+      else # Otherwise it's a RokkinError we raised, so just print that message
+        puts e.message
+        exit
+      end
+    end
   end
 end
 
