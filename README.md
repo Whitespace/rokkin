@@ -36,13 +36,13 @@ Quick Start
 + Configure `.env` to match the services exposed by `fig.yml`.
 + Modify your app to use the database connection params listed in `.env`.  For rails, look at `database.yml`
 + If you're on rails, add `dotenv-rails', require: 'dotenv/rails-now'` to your `Gemfile`.  If you're not, you'll need to run `dotenv` before running commands: `fig run web dotenv ruby some_file.rb`
-+ `fig build
-+ `fig up`
-+ `fig run web db:create db:migrate`
-+ Browse the app (the ip is `boot2docker ip` and the port is specified in `fig.yml`)
++ Build the containers: `fig build`
++ Launch the containers: `fig up`
++ Setup your databases: `fig run web db:create db:migrate`
++ Browse your app (the ip is `boot2docker ip` and the port is specified in `fig.yml`)
 
-Workflow
---------
+Developer Workflow
+------------------
 
 + `boot2docker up`
 + `$(boot2docker shellinit)`
@@ -58,10 +58,10 @@ Workflow
 FAQ
 ===
 
-+ _Where are my containers located?_
-+ Somewhere in boot2docker.  I'd try `boot2docker ssh` and poke around docker directly: `docker ps`
-+ _Where are the database files located?  How can I map them to my host machine?_
-+ I looked into this but couldn't figure it out.  I'll figure it out eventually.
++ Where are my containers located?
+  - Somewhere in boot2docker.  I'd try `boot2docker ssh` and poke around docker directly: `docker ps`
++ Where are the database files located?  How can I map them to my host machine?
+  - I looked into this but couldn't figure it out.  I'll figure it out eventually.
 
 Nota Bene
 ---------
