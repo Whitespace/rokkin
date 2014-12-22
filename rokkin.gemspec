@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.description = "A fast way to containerize your ruby webapps"
   s.authors     = ["Tom Clark"]
   s.email       = 'whitespace@gmail.com'
-  s.files       = ["lib/rokkin.rb", "lib/Dockerfile", "lib/Procfile", "lib/.env", "lib/fig.yml"]
+  s.files       = ["lib/rokkin.rb", "lib/assets/Dockerfile", "lib/assets/Procfile", "lib/assets/.env", "lib/assets/fig.yml"]
   s.homepage    = 'http://rubygems.org/gems/rokkin'
   s.license     = 'MIT'
 
