@@ -14,10 +14,10 @@ Features
 --------
 
 + Super simple config - just edit 4 text files and your `database.yml`
-+ Uses foreman to start/stop/restart/kill your apps gracefully
-+ Uses dotenv to separate out your database configuration from source control
-+ Uses fig to easily setup and manage complex container environments
-+ Properly caches gems for you so you only have to reinstall when your Gemfile.lock changes
++ Uses ddollar/foreman to start/stop/restart/kill your apps gracefully
++ Uses bkeepers/dotenv to separate out your database configuration from source control
++ Uses docker/fig to easily setup and manage complex container environments
++ Properly caches gems for you so you only have to reinstall when your `Gemfile.lock` changes
 + Multiple databases preconfigured for you out of the box
 + Works on non-Linux OSes via boot2docker
 + 100% compatible with Heroku environments (untested statement)
