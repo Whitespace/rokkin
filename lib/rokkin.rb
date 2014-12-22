@@ -23,11 +23,11 @@ class Rokkin
         raise RokkinError.new(e.message)
       end
     else
-      message = <<-MSG
+      message = RokkinHelper.strip_heredoc <<-MSG
         Cannot overwrite the following files: #{existing_files}
         Remove files or retry with --force
       MSG
-      raise RokkinError.new(RokkinHelper.strip_heredoc(message))
+      raise RokkinError.new(message)
     end
   end
 end

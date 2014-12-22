@@ -15,11 +15,12 @@ class RokkinCLI < Thor
     print "Cloning into #{full_path} ... "
     begin
       repo = Git.clone(url, full_path)
+      puts "done"
     rescue Git::GitExecuteError => e
       puts "error!"
-      raise e
+      puts e.message
+      exit
     end
-    puts "done"
 
     if options[:sha]
       print "Checking out #{options[:sha]} ... "
@@ -45,6 +46,8 @@ class RokkinCLI < Thor
     begin
       Rokkin.containerize(full_path, options)
       puts "done"
+      puts
+      docs
     rescue RokkinError => e
       puts "error!"
 
@@ -55,6 +58,11 @@ class RokkinCLI < Thor
         exit
       end
     end
+  end
+
+  desc "docs", "Prints detailed documentation"
+  def docs
+    puts "Detailed documentation is listed at https://github.com/Whitespace/rokkin"
   end
 end
 
