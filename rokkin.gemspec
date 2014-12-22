@@ -11,6 +11,6 @@ Gem::Specification.new do |s|
   s.homepage    = 'http://rubygems.org/gems/rokkin'
   s.license     = 'MIT'
 
-  s.add_runtime_dependency "git",   ["~> 1.2.8"]
-  s.add_runtime_dependency "thor",  ["~> 0.19.1"]
+  s.add_runtime_dependency "git",   ["~> 1.2"]
+  s.add_runtime_dependency "thor",  ["~> 0.19"]
 end
