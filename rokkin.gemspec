@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'rokkin'
-  s.version     = '0.0.4'
+  s.version     = '0.0.5'
   s.executables << 'rokkin'
   s.date        = '2014-12-21'
   s.summary     = "Rokkin!"
